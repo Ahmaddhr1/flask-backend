@@ -12,8 +12,8 @@ class Admin(db.Model):
     role=db.Column(db.String(20),nullable=False)
     status=db.Column(db.String(20),nullable=False)
 
-    complex_id = db.Column(db.Integer, db.ForeignKey("complex.id"), nullable=True)
-    building_id = db.Column(db.Integer, db.ForeignKey("buildings.id"), nullable=True)
+    complex_id = db.Column(db.Integer, db.ForeignKey("complex.id"))
+    building_id = db.Column(db.Integer, db.ForeignKey("buildings.id"))
 
     complex = db.relationship("Complex", back_populates="admins")
     building = db.relationship("Building", back_populates="admins")
