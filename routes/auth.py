@@ -34,13 +34,16 @@ def login():
                 "role":admin.role
             },
             os.getenv("JWT_SECRET"),
+            algorithms=["HS256"]
         )
+
+        
 
         return jsonify({
             "token": token,
             "admin": admin.to_dict()
         }), 200
-        
+
     except Exception as e:
         print("LOGIN ERROR:", e)
         return jsonify({"error": e,  }), 500

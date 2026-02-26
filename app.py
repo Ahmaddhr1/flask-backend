@@ -3,6 +3,7 @@ from config.db import db, test_db_connection
 from config import db as db_config
 from models import Complex, Admin, Building
 from routes.auth import auth
+from routes.admins import admins
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ db.init_app(app)
 test_db_connection(app)
 
 app.register_blueprint(auth)
+app.register_blueprint(admins)
 
 @app.route('/')
 def home():
