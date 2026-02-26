@@ -34,7 +34,6 @@ def login():
                 "role":admin.role
             },
             os.getenv("JWT_SECRET"),
-            algorithms=["HS256"]
         )
 
         
