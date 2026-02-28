@@ -55,5 +55,14 @@ def create_complex(user):
     except Exception as e:
         return jsonify({"error":"Error creating complex","details":str(e)}),500
 
-
+@complexes.route("/complexes", methods=["GET"])
+@requires_auth()
+def get_complexes(user):
+    try:
+        complexes = Complex.query.all()
+        return jsonify({
+            "data": [c.to_dict() for c in complexes]
+        }), 200
+    except Exception as e:
+        return jsonify({"error": "Error fetching complexes", "details": str(e)}), 500
     

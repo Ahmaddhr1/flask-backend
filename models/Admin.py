@@ -29,7 +29,8 @@ class Admin(db.Model):
             "status": self.status,
             "complex_id": self.complex_id,
             "building_id": self.building_id,
-            "complex":self.complex.to_dict if self.complex else None,
-            "building":self.building.to_dict if self.building else None
+            "complex_name":self.complex.name if self.complex else None,
+            "building_name":self.building.name if self.building else None,
+            # "building":self.building.to_dict() if self.building else None
         }
     

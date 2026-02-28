@@ -7,7 +7,7 @@ class Complex(db.Model):
     address=db.Column(db.String(20),nullable=False)
     campaign_info=db.Column(db.String(200),nullable=False)
     
-    admin=db.relationship("Admin", back_populates="complex")
+    admin=db.relationship("Admin", back_populates="complex",uselist=False)
     buildings=db.relationship("Building", back_populates="complex",cascade="all, delete-orphan")
 
     def to_dict(self):
