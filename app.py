@@ -4,6 +4,7 @@ from config import db as db_config
 from models import Complex, Admin, Building
 from routes.auth import auth
 from routes.admins import admins
+from routes.complexes import complexes
 
 app = Flask(__name__)
 
@@ -15,6 +16,7 @@ test_db_connection(app)
 
 app.register_blueprint(auth)
 app.register_blueprint(admins)
+app.register_blueprint(complexes)
 
 @app.route('/')
 def home():

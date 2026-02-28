@@ -16,8 +16,9 @@ SQLALCHEMY_DATABASE_URI =(
 def test_db_connection(app):
     try:
         with app.app_context():
+            # db.drop_all()
             db.session.execute(text("SELECT 1"))
             print("Database connected !")
-           # db.create_all()  
+            # db.create_all()
     except Exception as e:
         print("Error connecting to database",e)

@@ -36,8 +36,7 @@ def login():
             os.getenv("JWT_SECRET"),
         )
 
-        
-
+    
         return jsonify({
             "token": token,
             "admin": admin.to_dict()

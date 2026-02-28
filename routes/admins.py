@@ -1,9 +1,8 @@
 from config.db import db
 from flask import Blueprint, request, jsonify
 from middleware.requires_auth import requires_auth
-from models import Admin
 from middleware.reqirued_role import require_role
-from models.Admin import Admin
+from models import Admin
 from werkzeug.security import generate_password_hash
 
 admins = Blueprint("admins",__name__)

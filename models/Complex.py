@@ -7,8 +7,8 @@ class Complex(db.Model):
     address=db.Column(db.String(20),nullable=False)
     campaign_info=db.Column(db.String(200),nullable=False)
     
-    admins=db.relationship("Admin", back_populates="complex")
-    buildings=db.relationship("Building", back_populates="complex")
+    admin=db.relationship("Admin", back_populates="complex")
+    buildings=db.relationship("Building", back_populates="complex",cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -16,8 +16,7 @@ class Complex(db.Model):
             "name": self.name,
             "address":self.address,
             "campaign_info":self.campaign_info,
-            "admins":
-                [admin.to_dict() for admin in self.admins] if self.admins else [],
+            "admin":self.admin.to_dict() if self.admin else None,
             "buildings":
                 [building.to_dict() for building in self.buildings] if self.buildings else [],
         }

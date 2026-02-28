@@ -11,12 +11,11 @@ class Admin(db.Model):
     civility =db.Column(db.String(20),nullable=False)
     role=db.Column(db.String(20),nullable=False)
     status=db.Column(db.String(20),nullable=False)
-
     complex_id = db.Column(db.Integer, db.ForeignKey("complex.id"))
     building_id = db.Column(db.Integer, db.ForeignKey("buildings.id"))
 
-    complex = db.relationship("Complex", back_populates="admins")
-    building = db.relationship("Building", back_populates="admins")
+    complex = db.relationship("Complex", back_populates="admin")
+    building = db.relationship("Building", back_populates="admin")
     
     def to_dict(self):
         return {
@@ -30,7 +29,7 @@ class Admin(db.Model):
             "status": self.status,
             "complex_id": self.complex_id,
             "building_id": self.building_id,
-            "complex_name": self.complex.name if self.complex else None,
-            "building_name": self.building.name if self.building else None
+            "complex":self.complex.to_dict if self.complex else None,
+            "building":self.building.to_dict if self.building else None
         }
     
