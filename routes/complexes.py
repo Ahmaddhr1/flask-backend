@@ -49,7 +49,6 @@ def create_complex(user):
                 "name": complex.name,
                 "address": complex.address,
                 "campaign_info": complex.campaign_info,
-                "admin_id":complex.admin_id
             }
         }), 201  
     except Exception as e:

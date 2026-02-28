@@ -14,8 +14,8 @@ class Admin(db.Model):
     complex_id = db.Column(db.Integer, db.ForeignKey("complex.id"))
     building_id = db.Column(db.Integer, db.ForeignKey("buildings.id"))
 
-    complex = db.relationship("Complex", back_populates="admin")
-    building = db.relationship("Building", back_populates="admin")
+    complex = db.relationship("Complex", back_populates="admin",uselist=False)
+    building = db.relationship("Building", back_populates="admin",uselist=False)
     
     def to_dict(self):
         return {
@@ -31,6 +31,5 @@ class Admin(db.Model):
             "building_id": self.building_id,
             "complex_name":self.complex.name if self.complex else None,
             "building_name":self.building.name if self.building else None,
-            # "building":self.building.to_dict() if self.building else None
         }
     

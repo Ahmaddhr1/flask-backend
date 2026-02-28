@@ -7,13 +7,14 @@ class Building(db.Model):
     complex_id = db.Column(db.Integer, db.ForeignKey("complex.id"), nullable=False)
     
     complex = db.relationship("Complex", back_populates="buildings")
-    admin = db.relationship("Admin", back_populates="building", lazy=True)
+    admin = db.relationship("Admin", back_populates="building",uselist=False)
     
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "complex_id": self.complex_id,
-            "complex": self.complex.to_dict() if self.complex else None,
-            "admin":self.admin.to_dict() if self.admin else None,
+            "complex_name": self.complex.name if self.complex else None,
+            "admin_id":self.admin.id if self.admin else None,
+            "admin_name":self.admin.first_name if self.admin else None,
         }
