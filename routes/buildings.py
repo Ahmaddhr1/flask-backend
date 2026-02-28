@@ -63,3 +63,24 @@ def get_buildings(user):
         return jsonify({"data": [b.to_dict() for b in buildings_list]}), 200
     except Exception as e:
         return jsonify({"error": "Error fetching buildings","details": str(e)}), 500
+    
+@buildings.route("/buildings/<int:building_id>", methods=["DELETE"])
+@requires_auth()
+def delete_building(user, building_id):
+    try:
+        building = Building.query.get(building_id)
+        
+        if not building:
+            return jsonify({"error": "Building not found"}), 404
+        
+        if building.admin:
+            building.admin.building_id = None
+
+        db.session.delete(building)
+        db.session.commit()
+
+        return jsonify({"message": "Building deleted successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Error deleting building","details": str(e)}), 500
