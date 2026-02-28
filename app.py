@@ -6,8 +6,11 @@ from routes.auth import auth
 from routes.admins import admins
 from routes.complexes import complexes
 from routes.buildings import buildings
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)
 
 app.config.from_object(db_config)
 
