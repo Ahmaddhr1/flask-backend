@@ -12,7 +12,18 @@ admins = Blueprint("admins",__name__)
 @requires_auth()
 def get_admins(user):
     try:
-        admins = Admin.query.all()
+        page= request.args.get("page",1,type=int)
+        per_page=3
+        
+        query = Admin.query
+        
+        total=query.count()
+        admins = (
+            query
+            .limit(per_page)
+            .offset((page-1)*per_page)
+            .all()
+        )
         if not admins:
             return jsonify({"message":"No admins found","data":[]}),404
         return jsonify({"data":[a.to_dict() for a in admins]}), 200
