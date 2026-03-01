@@ -45,3 +45,29 @@ def create_admins(user):
         return jsonify({"message":"Admin Created"}),201
     except Exception as e:
         return jsonify({"error":str(e)}),500
+    
+@admins.route("/admins/available", methods=["GET"])
+@requires_auth()
+def get_available_admins(user):
+    try:
+        admins = (
+        Admin.query
+        .filter(Admin.complex_id.is_(None))
+        .filter(Admin.building_id.is_(None))
+        .filter(func.lower(Admin.status) == "active")
+        .all()
+        )
+
+        data = [
+        {
+            "id": a.id,
+            "first_name": a.first_name,
+            "last_name": a.last_name,
+            "email": a.email,
+        }
+        for a in admins
+        ]
+        return jsonify({"data": data}), 200
+    except Exception as e:
+        return jsonify({"error":str(e)}),500
+    
